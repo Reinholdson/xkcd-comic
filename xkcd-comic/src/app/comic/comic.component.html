@@ -1,18 +1,33 @@
-
-
-    <div>
-    <button class="btn" (click)="getComics()">See next comic</button>
-    <button class="btn" (click)="getPreviousComic()">See previous comic</button>
-    <form #simpleForm="ngForm" (ngSubmit)="getSearchedComic(simpleForm.value)"> 
-      <input type="text" ngModel name="search" id="search" placeholder="Enter a comic number">
-      <br>
-      <button>Get comic</button>
+<div class="container">
+    <mat-toolbar class="toolbar">
+        <mat-icon class="icon" aria-hidden="false" (click)="getPreviousComic()" aria-label="Rewind icon">fast_rewind
+        </mat-icon>
+        <div class="comic-title">{{ comic.title }}</div>
+        <span class="dots-space"></span>
+        <mat-sidenav-container>
+            <mat-sidenav mode="side"  [(opened)]="opened">See next comic
+                <mat-icon class="icon" aria-hidden="false" (click)="getComics()" aria-label="Dots icon">play_arrow
+                </mat-icon>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <mat-icon class="icon" aria-hidden="false" (click)="opened=!opened" aria-label="Dots icon">more_vert
+                </mat-icon>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </mat-toolbar>
+    <br>
+    <div class="search-title">Search for your favourite comic</div>
+    <form class="search-form" #simpleForm="ngForm" (ngSubmit)="getSearchedComic(simpleForm.value)">
+        <input type="text" ngModel name="search" id="search" placeholder="Enter a comic number">
+        <br>
+        <br>
+        <button class="search-btn">Get comic</button>
     </form>
-  </div>
-    <mat-spinner *ngIf="showSpinner"></mat-spinner>
-    <tr>{{comic.title}}</tr>
-        <tr>
-        <img class="comic" [src]="comic.img" />
-      </tr> 
-  
-  
+</div>
+
+<mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
+<div class="comic-container">
+    <tr>
+        <img class="comic-img" [src]="comic.img" />
+    </tr>
+</div>

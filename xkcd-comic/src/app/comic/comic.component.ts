@@ -18,6 +18,7 @@ export class Comic {
 })
 export class ComicComponent implements OnInit {
 
+  opened = false;
   showSpinner = false;
   private history: number[] = [];
   public comic: Comic;
