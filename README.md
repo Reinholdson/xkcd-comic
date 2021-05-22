@@ -2,6 +2,8 @@
 
 Small application to get random xkcd comic strips.
 
+In terminal, ng serve to run.
+
 Runs on localhost http://localhost:4200/
 
 Sidenav to access the button for next strip and back button to get the previous.
