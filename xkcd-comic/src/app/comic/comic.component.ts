@@ -1,5 +1,6 @@
 import { COMPILER_OPTIONS, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 export class Comic {
   constructor(
@@ -37,13 +38,14 @@ export class ComicComponent implements OnInit {
   
  
   getComics() {
-    
+    this.showSpinner = true;
     const buildnewUrl = this.buildUrl(Math.floor((Math.random() * 1000) + 1));
     this.history.push(this.comic.num)
     this.httpClient.get<any>(buildnewUrl).subscribe(
       response => {
         console.log(response); 
         this.comic = new Comic(response.num, response.img, response.title)
+        this.showSpinner = false;
         console.info(this.history)
         
         
@@ -52,12 +54,14 @@ export class ComicComponent implements OnInit {
   }
   getPreviousComic() {
     const pop = this.history.pop()?.toString();
+    this.showSpinner = true;
     const prevUrl: string = "https://xkcd.com/" +pop+ "/info.0.json";
   
     this.httpClient.get<any>(prevUrl).subscribe(
       response => {
         console.log(response); 
         this.comic = new Comic(response.num, response.img, response.title)
+        this.showSpinner = false;
         console.info(prevUrl);
         
         
@@ -65,17 +69,17 @@ export class ComicComponent implements OnInit {
     );
   }
   getSearchedComic(comic: any) {
-    console.log(comic);
     
     const buildnewUrl = this.buildUrl(parseInt(comic.search));
     this.history.push(this.comic.num)
+    this.showSpinner = true;
     this.httpClient.get<any>(buildnewUrl).subscribe(
       response => {
         console.log(response); 
         this.comic = new Comic(response.num, response.img, response.title)
-       
+        this.showSpinner = false;
         console.info(this.history)
-        
+
         
       }
     );
